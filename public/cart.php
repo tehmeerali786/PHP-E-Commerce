@@ -75,6 +75,10 @@
 
             $total = 0;
             $item_quantity = 0;
+            $item_name = 1;
+            $item_number = 1;
+            $amount = 1;
+            $quantity = 1;
 
 
 
@@ -125,7 +129,10 @@ $product = <<<DELIMETER2
 
 </tr>
 
-
+<input type="hidden" name="item_name_{$item_name}" value="{$row['product_title']}">
+<input type="hidden" name="item_number_{$item_number}" value="{$row['product_id']}">
+<input type="hidden" name="amount_{$amount}" value="{$row['product_price']}">
+<input type="hidden" name="quantity_{$quantity}" value="{$value}">
 
 
 
@@ -133,6 +140,11 @@ DELIMETER2;
 
 
 echo $product;
+
+$item_name++;
+$item_number++;
+$amount++;
+$quantity++;
 
 $_SESSION['item_total'] = $total += $sub;
 $_SESSION['item_quantity'] = $item_quantity;
@@ -147,8 +159,6 @@ $_SESSION['item_quantity'] = $item_quantity;
 
                 }
                 
-                
-
 
             
             }
@@ -156,6 +166,40 @@ $_SESSION['item_quantity'] = $item_quantity;
 
         }
 
+
+
+function show_paypal(){
+
+
+if (isset($_SESSION['item_quantity'])) {
+
+
+$paypal_button = <<<DELIMETER3
+
+
+
+
+
+<input type="image" name="upload"
+    src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif"
+    alt="PayPal - The safer, easier way to pay online">
+
+
+
+
+
+
+
+
+
+
+DELIMETER3;
+
+return $paypal_button;
+
+}
+
+}
 
 
 
